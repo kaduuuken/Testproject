@@ -13,10 +13,8 @@ def test_view(request):
 				username = request.user
 			else:
 				username = 'Gast'
-			new_post = Post(title = form.cleaned_data['title'],
-			content = form.cleaned_data['content'])
-			new_post.save()
-			return render_to_response('entry/test.html', {'form': form, 				'username':username})
+			new_post = form.save()
+			return render_to_response('entry/test.html', {'form': form, 'username':username})
 		else:
 			return render_to_response('entry/test.html', {'form': form})
 	else:
