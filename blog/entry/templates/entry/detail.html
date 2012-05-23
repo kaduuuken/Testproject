@@ -1,0 +1,81 @@
+<html>
+<body>
+        {% load comments %}
+	<table align="center" border="0" cellpadding="0" cellspacing="0">
+		<tr height="50px"><td><a href="../">zurueck</a></td></tr>
+		<tr>
+			<td>
+				<table align="center" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td width="250px"><p>Eintrag von: <b>{{ post.user }}</b> </p></td>
+						<td><p>Datum: {{ post.pub_date }}</p></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td><p>Titel: <b>{{ post.title }}</b></p></td>
+		</tr>
+		<tr height="20px"></tr>
+		<tr>
+			
+			<td><p>{{ post.content|linebreaks }}</p></td>
+		</tr>
+		<tr>
+			<td>{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}</td>
+		</tr>
+		<tr height="20px"></tr>
+		<tr>
+			<td><p><b>Kommentare:</b></p></td>
+		</tr>
+		<tr height="10px"></tr>
+		<tr>
+			<td>
+				<table align="center" border="1" cellpadding="0" cellspacing="0">
+					{% for comment in post.comments.all %}
+					<tr>
+						<td>
+							<table align="center" border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td width="250px"><p>Kommentar von: <b>{{ comment.name }}</b></p></td>
+									<td><p>Datum: {{ comment.pub_date }}</p></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr height="10px"></tr>
+					<tr>
+						<td><p>{{ comment.text }}</p></td>
+					</tr>
+					<tr height="20px"></tr>
+					{% empty %}
+					<tr>
+						<td>Noch keine Kommentare vorhanden, schreibe jetzt den ersten!</td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<td>
+							{% get_comment_form for post as form %}
+							<table align="center" border="1" cellpadding="0" cellspacing="0">
+								<form action="{% comment_form_target %}" method="post">
+								{% csrf_token %}
+								{{ form }}
+								<tr>
+									<td colspan="2">
+										<input type="submit" name="submit" value="Post">
+									</td>
+								</tr>
+								</form>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
+
+
+
+
