@@ -5,7 +5,7 @@ class Post(models.Model):
 	title = models.CharField("Titel",max_length=200, blank=False,)
 	content = models.TextField("Inhalt", blank=False)
 	pub_date = models.DateTimeField('Datum','date published',auto_now_add=True)
-	user = models.ForeignKey(User, null=True)
+	'''user = models.ForeignKey(User, null=True)'''
 	
 	def __unicode__(self):
 		return "Eintrag: %s" % (self.title)
